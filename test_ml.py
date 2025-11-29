@@ -2,37 +2,46 @@ import pandas as pd
 from ml.data import process_data
 from ml.model import train_model, compute_model_metrics
 
+
 def test_process_data_output_types():
     """
     Test that process_data returns the expected output types.
     """
     # tiny mock dataframe with the required columns
-    df = pd.DataFrame({
-        "age": [25, 45],
-        "workclass": ["Private", "Self-emp"],
-        "fnlgt": [100000, 200000],
-        "education": ["Bachelors", "HS-grad"],
-        "education-num": [13, 9],
-        "marital-status": ["Never-married", "Married-civ-spouse"],
-        "occupation": ["Tech-support", "Craft-repair"],
-        "relationship": ["Not-in-family", "Husband"],
-        "race": ["White", "Black"],
-        "sex": ["Male", "Female"],
-        "capital-gain": [0, 0],
-        "capital-loss": [0, 0],
-        "hours-per-week": [40, 50],
-        "native-country": ["United-States", "United-States"],
-        "salary": ["<=50K", ">50K"]
-    })
+    df = pd.DataFrame(
+        {
+            "age": [25, 45],
+            "workclass": ["Private", "Self-emp"],
+            "fnlgt": [100000, 200000],
+            "education": ["Bachelors", "HS-grad"],
+            "education-num": [13, 9],
+            "marital-status": ["Never-married", "Married-civ-spouse"],
+            "occupation": ["Tech-support", "Craft-repair"],
+            "relationship": ["Not-in-family", "Husband"],
+            "race": ["White", "Black"],
+            "sex": ["Male", "Female"],
+            "capital-gain": [0, 0],
+            "capital-loss": [0, 0],
+            "hours-per-week": [40, 50],
+            "native-country": ["United-States", "United-States"],
+            "salary": ["<=50K", ">50K"],
+        }
+    )
 
     X, y, encoder, lb = process_data(
         df,
         categorical_features=[
-            "workclass", "education", "marital-status", "occupation",
-            "relationship", "race", "sex", "native-country"
+            "workclass",
+            "education",
+            "marital-status",
+            "occupation",
+            "relationship",
+            "race",
+            "sex",
+            "native-country",
         ],
         label="salary",
-        training=True
+        training=True,
     )
 
     assert isinstance(X, pd.DataFrame) or hasattr(X, "shape")
@@ -69,4 +78,3 @@ def test_compute_model_metrics_returns_three_values():
     assert isinstance(precision, float)
     assert isinstance(recall, float)
     assert isinstance(fbeta, float)
-

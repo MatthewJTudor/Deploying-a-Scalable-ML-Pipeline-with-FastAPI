@@ -82,7 +82,7 @@ async def post_inference(data: Data):
         label=None,
         training=False,
         encoder=encoder,
-        lb=lb
+        lb=lb,
     )
     _inference = inference(model, data_processed)
 
